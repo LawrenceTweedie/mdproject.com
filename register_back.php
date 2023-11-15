@@ -12,40 +12,43 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([
  'email' => $email
 ]);
-$email = $stmt->fetch(PDO::FETCH_ASSOC);
+$check_email = $stmt->fetch(PDO::FETCH_ASSOC);
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if($check_email['email'] != $email) {
+        if (strlen($email) <=64) {
+            if ($pass == $pass_confirm) {
+                if (strlen($pass) <= 16) {
+                    if (strlen($pass) >= 8) {
+                        $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+                        $sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
+                        $stmt = $pdo->prepare($sql);
 
-if($email == false) {
-    if ($email <=64) {
-        if ($pass == $pass_confirm) {
-            if ($pass <= 16) {
-                if ($pass >= 8) {
-                    $pass_hash = password_hash($pass);
-                    $sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
-                    $stmt = $pdo->prepare($sql);
-
-                    try {
-                    $stmt->execute([
-                        'email' => $email,
-                        'password' => $pass_hash
-                    ]);
-                    echo "Регистрация успешно";
-                    } catch (PDOException $exception) {
-                    $error = "Ошибка при добавлении нового пользователя: {$exception->getMessage()}";
+                        try {
+                        $stmt->execute([
+                            'email' => $email,
+                            'password' => $pass_hash
+                        ]);
+                        echo "Регистрация успешно";
+                        } catch (PDOException $exception) {
+                        $error = "Ошибка при добавлении нового пользователя: {$exception->getMessage()}";
+                        }
+                    } else {
+                        $error = "Минимальная длина пароля 8 символов.";
                     }
                 } else {
-                    $error = "Минимальная длина пароля 8 символов.";
+                    $error= "Максимальная длина пароля 16 символов.";
                 }
             } else {
-                $error= "Максимальная длина пароля 16 символов.";
+                $error = "Пароли не совпадают.";
             }
         } else {
-            $error = "Пароли не совпадают.";
+            $error = "Максимальная длина почты 64 символа.";
         }
     } else {
-        $error = "Максимальная длина почты 64 символа.";
+        $error = "Такой пользователь уже существует.";
     }
 } else {
-    $error = "Такой пользователь уже существует.";
+    $error = "Почта введена неправильно.";
 }
 
 if (isset($error)) {
