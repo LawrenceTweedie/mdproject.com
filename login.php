@@ -36,7 +36,7 @@
     <br></br>
 <div class="container">
 <form>
-<h1 class="display-6">Регистрация</h1>
+<h1 class="display-6">Авторизация</h1>
   <div class="mb-3">
   <div id="passwordHelpBlock" class="form-text">
   Адрес электронной почты
@@ -44,17 +44,13 @@
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
   <div class="mb-3">
-  <div id="emailHelpBlock" class="form-text">
+  <div id="passwordHelpBlock" class="form-text">
   Пароль
 </div>
     <input type="password" class="form-control" id="exampleInputPassword1">
   </div>
-  <div id="passwordHelpBlock2" class="form-text">
-  Подтверждение пароля
-    <input type="password" class="form-control" id="exampleInputPassword1">
-    <br></br>
-  <a href="login.php" class="btn btn-outline-primary col-6 col-sm-4 me-4">Войти</a>
-  <a href="register.php" class="btn btn-primary col-6 col-sm-4 mpx-4">Регистрация</a>
+  <button type="submit" class="btn btn-primary col-6 col-sm-4 mpx-4 me-4">Войти</button>
+  <a href="register.php" class="btn btn-outline-primary col-6 col-sm-4">Регистрация</a>
 </center>
 </form>
 </div>
