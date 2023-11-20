@@ -1,4 +1,8 @@
 <?
+session_start();
+if (isset($_SESSION['email'])) {
+    header('Location: /index.php');
+}
 $email = $_POST['email'];
 $pass = $_POST['pass'];
 $pass_confirm = $_POST['pass_confirm'];
@@ -28,7 +32,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                             'email' => $email,
                             'password' => $pass_hash
                         ]);
-                        echo "Регистрация успешно";
+                        $_SESSION['email'] = $email;
                         } catch (PDOException $exception) {
                         $error = "Ошибка при добавлении нового пользователя: {$exception->getMessage()}";
                         }

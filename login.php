@@ -1,3 +1,8 @@
+<? 
+if (isset($_SESSION['email'])) {
+  header('Location: /index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,19 +40,19 @@
     <br></br>
     <br></br>
 <div class="container">
-<form>
+<form action="/login_back.php" method="POST">
 <h1 class="display-6">Авторизация</h1>
   <div class="mb-3">
   <div id="passwordHelpBlock" class="form-text">
   Адрес электронной почты
 </div>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
   <div class="mb-3">
   <div id="passwordHelpBlock" class="form-text">
   Пароль
 </div>
-    <input type="password" class="form-control" id="exampleInputPassword1">
+    <input name="pass" type="password" class="form-control" id="exampleInputPassword1">
   </div>
   <button type="submit" class="btn btn-primary col-6 col-sm-4 mpx-4 me-4">Войти</button>
   <a href="register.php" class="btn btn-outline-primary col-6 col-sm-4">Регистрация</a>
